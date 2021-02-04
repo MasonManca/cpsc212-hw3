@@ -13,10 +13,9 @@ to initialize-turtles
   create-turtles 12
   ask turtles [
     setxy random-xcor random-ycor
-    set color 37 ;tan color
+    set color
     set size 1.5
     set days-infected 0
-    set shape "person"
   ]
 end
 @#$#@#$#@
