@@ -25,23 +25,56 @@ end
 
 ; procudure to create lakes in 3 of the quadrants, one size 3x3 and two size 4x4
 to create-lakes
+  ; 3x3 top right lake
   ask patch 10 10
   [
     set pcolor blue
     ask neighbors [set pcolor sky]
   ]
+  ; 4x4 bottom right lake
   ask patch 10 -10
   [
-    ask patches in-radius 3 [ set pcolor sky ]
-    ask neighbors           [ set pcolor blue ]
-    set pcolor blue
+    ask neighbors [set pcolor sky]
   ]
+  ask patch 10 -9
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch 9 -10
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch 9 -9
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch 10 -10 [ set pcolor blue ]
+  ask patch 10 -9 [ set pcolor blue ]
+  ask patch 9 -10 [ set pcolor blue ]
+  ask patch 9 -9 [ set pcolor blue ]
+
+  ; 4x4 bottom left lake
   ask patch -10 -10
   [
-    ask patches in-radius 3 [ set pcolor sky ]
-    ask neighbors           [ set pcolor blue ]
-    set pcolor blue
+    ask neighbors [set pcolor sky]
   ]
+  ask patch -10 -9
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch -9 -10
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch -9 -9
+  [
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch -10 -10 [ set pcolor blue ]
+  ask patch -10 -9 [ set pcolor blue ]
+  ask patch -9 -10 [ set pcolor blue ]
+  ask patch -9 -9 [ set pcolor blue ]
+
 
 end
 
