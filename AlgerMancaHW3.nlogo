@@ -6,7 +6,9 @@ turtles-own [days-infected]
 
 ;start handler - randomly places humans and lakes
 to start
+  clear-all
   initialize-turtles
+  create-lakes
 end
 
 to initialize-turtles
@@ -18,6 +20,27 @@ to initialize-turtles
     set days-infected 0
     set shape "person"
   ]
+end
+
+to create-lakes
+  ask patch 10 10
+  [
+    set pcolor blue
+    ask neighbors [set pcolor sky]
+  ]
+  ask patch 10 -10
+  [
+    ask patches in-radius 3 [ set pcolor sky ]
+    ask neighbors           [ set pcolor blue ]
+    set pcolor blue
+  ]
+  ask patch -10 -10
+  [
+    ask patches in-radius 3 [ set pcolor sky ]
+    ask neighbors           [ set pcolor blue ]
+    set pcolor blue
+  ]
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
