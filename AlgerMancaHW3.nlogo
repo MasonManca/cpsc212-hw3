@@ -1,6 +1,6 @@
 ; AlgerMancaHW3.nlogo Nelly Alger, Mason Manca
 ; HW3 - Zombies & Lakes - Feb 7 2021
-; **descrption**
+; This program simulates zombies, monsters, and lakes represented by turtles and patches.
 
 turtles-own [days-infected]
 
@@ -9,6 +9,8 @@ to start
   clear-all
   initialize-turtles
   create-lakes
+  ask turtles [ if pcolor != black [ die ] ] ;prevents spawning inside lake
+  reset-ticks
 end
 
 ; procedure to configure turtles and place them on the window
@@ -29,47 +31,23 @@ to create-lakes
   ask patch 10 10
   [
     set pcolor blue
-    ask neighbors [set pcolor sky]
+    ask neighbors [ set pcolor sky ]
   ]
   ; 4x4 bottom right lake
-  ask patch 10 -10
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch 10 -9
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch 9 -10
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch 9 -9
-  [
-    ask neighbors [set pcolor sky]
-  ]
+  ask patch 10 -10 [ ask neighbors [ set pcolor sky ] ]
+  ask patch 10 -9 [ ask neighbors [ set pcolor sky ] ]
+  ask patch 9 -10 [ ask neighbors [ set pcolor sky] ]
+  ask patch 9 -9 [ ask neighbors [ set pcolor sky ] ]
   ask patch 10 -10 [ set pcolor blue ]
   ask patch 10 -9 [ set pcolor blue ]
   ask patch 9 -10 [ set pcolor blue ]
   ask patch 9 -9 [ set pcolor blue ]
 
   ; 4x4 bottom left lake
-  ask patch -10 -10
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch -10 -9
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch -9 -10
-  [
-    ask neighbors [set pcolor sky]
-  ]
-  ask patch -9 -9
-  [
-    ask neighbors [set pcolor sky]
-  ]
+  ask patch -10 -10 [ ask neighbors [ set pcolor sky ] ]
+  ask patch -10 -9 [ ask neighbors [ set pcolor sky ] ]
+  ask patch -9 -10 [ ask neighbors [ set pcolor sky] ]
+  ask patch -9 -9 [ ask neighbors [ set pcolor sky ] ]
   ask patch -10 -10 [ set pcolor blue ]
   ask patch -10 -9 [ set pcolor blue ]
   ask patch -9 -10 [ set pcolor blue ]
@@ -77,14 +55,37 @@ to create-lakes
 
 
 end
-
+; move handler, moves turtles around iterating through ticks to determine whether they are zombies
 to move
+  tick
   ask turtles [
-    right random 46
-    forward 1
-    set days-infected days-infected + 1
-    if pcolor != black [ die ]
+    if who < 12 [
+      set color yellow
+      pen-down
+      right random 46
+      forward 1
+      set color 37
+      set days-infected days-infected + 1
+      if pcolor != black [ die ]
+      if days-infected > 6 [ set color red]
+    ]
   ]
+  make-monsters
+end
+; makes a lake monster and moves it around depending on ticks
+to make-monsters
+  if ticks = 5 [
+    create-turtles 1
+    ask turtle 12 [
+      set color green
+      set shape "person"
+      set size 1.5
+      setxy -10 -10
+    ]
+  ]
+  if ticks = 6 [ ask turtle 12 [ setxy -10 -9 ]]
+  if ticks = 7 [ ask turtle 12 [ setxy -9 -9 ]]
+  if ticks = 8 [ ask turtle 12 [ die ] ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
