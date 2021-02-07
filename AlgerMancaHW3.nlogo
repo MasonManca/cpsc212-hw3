@@ -11,6 +11,7 @@ to start
   create-lakes
 end
 
+; procedure to configure turtles and place them on the window
 to initialize-turtles
   create-turtles 12
   ask turtles [
@@ -22,6 +23,7 @@ to initialize-turtles
   ]
 end
 
+; procudure to create lakes in 3 of the quadrants, one size 3x3 and two size 4x4
 to create-lakes
   ask patch 10 10
   [
@@ -41,6 +43,15 @@ to create-lakes
     set pcolor blue
   ]
 
+end
+
+to move
+  ask turtles [
+    right random 46
+    forward 1
+    set days-infected days-infected + 1
+    if pcolor != black [ die ]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -77,6 +88,23 @@ BUTTON
 74
 NIL
 start
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+79
+139
+144
+172
+NIL
+move
 NIL
 1
 T
